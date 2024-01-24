@@ -1,11 +1,11 @@
 #pragma once
 #include "Struct.h"
 
-class PlayerBullet
+class Bullet
 {
 public:
 
-	PlayerBullet();
+	Bullet();
 
 	void Update();
 

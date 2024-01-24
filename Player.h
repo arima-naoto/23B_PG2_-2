@@ -1,8 +1,8 @@
 #pragma once
 #include "Struct.h"
-#include "PlayerBullet.h"
+#include "Bullet.h"
 
-class Player : public PlayerBullet
+class Player
 {
 public:
 
@@ -14,7 +14,7 @@ public:
 
 	void Draw();
 
-	PlayerBullet* playerbullet;
+	Bullet* bullet;
 
 private:
 
