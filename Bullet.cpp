@@ -1,7 +1,7 @@
-#include "PlayerBullet.h"
+#include "Bullet.h"
 #include "Novice.h"
 
-PlayerBullet::PlayerBullet() 
+Bullet::Bullet() 
 {
 	position_.x = 0;
 	position_.y = -10;
@@ -13,7 +13,7 @@ PlayerBullet::PlayerBullet()
 
 }
 
-void PlayerBullet::Update() 
+void Bullet::Update() 
 {
 	if (isShot_ == true) 
 	{
@@ -26,7 +26,7 @@ void PlayerBullet::Update()
 	}
 }
 
-void PlayerBullet::Draw() 
+void Bullet::Draw() 
 {
 	if (isShot_ == true) 
 	{
