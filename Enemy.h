@@ -15,6 +15,10 @@ public:
 
 	int GetRadius() { return radius_; };
 
+	bool GetIsAlive() { return isAlive_; };
+
+	bool SetIsAlive(bool isAlive) { return this->isAlive_ = isAlive; };
+
 private:
 
 	Vector2 position_;

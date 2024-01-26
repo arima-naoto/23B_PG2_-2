@@ -36,6 +36,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		enemy->Update();
 
+		int EnemyDistance = (player->bullet->GetPos().x - enemy->GetPos().x) *
+			                (player->bullet->GetPos().x - enemy->GetPos().x) +
+			                (player->bullet->GetPos().y - enemy->GetPos().y) *
+			                (player->bullet->GetPos().y - enemy->GetPos().y);
+
+		int EnemyR = enemy->GetRadius();
+		int BulletR = player->bullet->GetRadius();
+		bool EnemyIsAlive = enemy->GetIsAlive();
+
+		if (EnemyDistance <= EnemyR + BulletR * EnemyR + BulletR) 
+		{
+			EnemyIsAlive = false;
+
+			enemy->SetIsAlive(EnemyIsAlive);
+		}
+
+
 		///
 		/// ↑更新処理ここまで
 		///

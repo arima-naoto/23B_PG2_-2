@@ -5,7 +5,7 @@ Bullet::Bullet()
 {
 	position_.x = 0;
 	position_.y = -10;
-	radius_ = 10;
+	radius_ = 20;
 	speed_ = 10;
 	color_ = WHITE;
 	isShot_ = false;
