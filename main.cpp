@@ -35,6 +35,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		player->Update(keys,preKeys);
 
 		enemy->Update();
+		enemy->OnCollision();
 
 		int EnemyDistance = (player->bullet->GetPos().x - enemy->GetPos().x) *
 			                (player->bullet->GetPos().x - enemy->GetPos().x) +

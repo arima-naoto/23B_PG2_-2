@@ -16,8 +16,6 @@ public:
 
 	Vector2 GetPos() { return position_; };
 
-	int GetRadius() { return radius_; };
-
 	Bullet* bullet;
 
 private:

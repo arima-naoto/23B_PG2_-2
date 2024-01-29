@@ -9,6 +9,8 @@ public:
 
 	void Update();
 
+	void OnCollision();
+
 	void Draw();
 
 	Vector2 GetPos() { return position_; };
@@ -26,6 +28,8 @@ private:
 	int radius_;
 
 	int speed_;
+
+	int RespornTimer;
 
 	unsigned int color_;
 

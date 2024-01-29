@@ -7,6 +7,7 @@ void Enemy::Initalize()
 	position_.y = 150;
 	radius_ = 20;
 	speed_ = 5;
+	RespornTimer = 120;
 	color_ = RED;
 	isAlive_ = true;
 }
@@ -20,6 +21,21 @@ void Enemy::Update()
 		if (position_.x >= 1260 || position_.x <= 20)
 		{
 			speed_ *= -1;
+		}
+	}
+
+}
+
+void Enemy::OnCollision() 
+{
+	if (isAlive_ == false)
+	{
+		RespornTimer--;
+
+		if (RespornTimer <= 0)
+		{
+			RespornTimer = 120;
+			isAlive_ = true;
 		}
 	}
 }
