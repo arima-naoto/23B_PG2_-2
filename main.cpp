@@ -1,6 +1,8 @@
 #include <Novice.h>
 #include <Enemy.h>
 #include <Player.h>
+#include <BackGroundA.h>
+#include <BackGroundB.h>
 
 const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 
@@ -18,6 +20,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	Enemy* enemy = new Enemy();
 	enemy->Initalize();
+
+	BackGround* backgroundA = new BackGroundA();
+	BackGround* backgroundB = new BackGroundB();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -53,6 +58,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			enemy->SetIsAlive(EnemyIsAlive);
 		}
 
+		backgroundA->Update();
+		backgroundB->Update();
 
 		///
 		/// ↑更新処理ここまで
@@ -65,6 +72,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		player->Draw();
 
 		enemy->Draw();
+
+		backgroundA->Draw();
+		backgroundB->Draw();
 
 		///
 		/// ↑描画処理ここまで
@@ -81,6 +91,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの終了
 	Novice::Finalize();
-	delete enemy,player;
+	delete enemy,player,backgroundA,backgroundB;
 	return 0;
 }
