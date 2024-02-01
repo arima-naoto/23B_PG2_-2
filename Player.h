@@ -26,6 +26,11 @@ public:
 	/// </summary>
 	void Draw();
 
+	Vector2 GetPos() { return position_; };
+
+	int GetRadius() { return radius_; };
+
+
 private:
 
 	Vector2 position_;
