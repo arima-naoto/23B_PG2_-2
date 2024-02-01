@@ -4,6 +4,9 @@
 
 const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 
+
+bool Enemy::isAlive = true;
+
 bool Bullet::isShot = false;
 
 // Windowsアプリでのエントリーポイント(main関数)

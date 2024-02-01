@@ -10,15 +10,22 @@ void Enemy::Initalize(Vector2 position, int radius, int speed, unsigned int colo
 
 void Enemy::Update()
 {
-	position_.x += speed_;
 
-	if (position_.x >= 1260 || position_.x <= 20)
+	if (isAlive == true) 
 	{
-		speed_ *= -1;
+		position_.x += speed_;
+
+		if (position_.x >= 1260 || position_.x <= 20)
+		{
+			speed_ *= -1;
+		}
 	}
 }
 
 void Enemy::Draw()
 {
-	Novice::DrawEllipse(position_.x, position_.y, radius_, radius_, 0.0f, color_, kFillModeSolid);
+	if (isAlive == true) 
+	{
+		Novice::DrawEllipse(position_.x, position_.y, radius_, radius_, 0.0f, color_, kFillModeSolid);
+	}
 }
