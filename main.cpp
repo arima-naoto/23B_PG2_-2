@@ -4,6 +4,9 @@
 
 const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 
+
+bool Enemy::isAlive = true;
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 

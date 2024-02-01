@@ -15,6 +15,8 @@ public:
 
 	int GetRadius() { return radius_; };
 
+	static bool isAlive;
+
 private:
 
 	Vector2 position_;
