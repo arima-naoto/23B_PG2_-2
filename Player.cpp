@@ -1,25 +1,24 @@
 #include "Player.h"
 
-Player::Player(Vector2 position,int radius,int speed,unsigned int color)
+Player::Player() 
 {
-	position_ = position;
-	radius_ = radius;
-	speed_ = speed;
-	color_ = color;
-
-	bullet = new Bullet({ 0,-10 }, 20, 10, WHITE);
+	position_.x = 640;
+	position_.y = 550;
+	radius_ = 35;
+	speed_ = 7;
+	color_ = GREEN;
 }
 
 Player::~Player(){}
 
-void Player::Update(char *keys,char *preKeys)
+void Player::Update(char *keys)
 {
-	if (keys[DIK_D]) 
+	if(keys[DIK_D])
 	{
 		position_.x += speed_;
 	}
 
-	if (keys[DIK_A])
+	if (keys[DIK_A]) 
 	{
 		position_.x -= speed_;
 	}
@@ -33,23 +32,9 @@ void Player::Update(char *keys,char *preKeys)
 	{
 		position_.y += speed_;
 	}
-
-	Vector2 TempPlayerPosition = GetPos();
-
-	if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == false && Bullet::isShot == false) 
-	{
-		Bullet::isShot = true;
-		bullet->SetPosition(TempPlayerPosition);
-	}
-
-	bullet->Update();
-
 }
 
 void Player::Draw()
 {
-
-	bullet->Draw();
-
 	Novice::DrawEllipse(position_.x, position_.y, radius_, radius_, 0.0f, color_, kFillModeSolid);
 }
