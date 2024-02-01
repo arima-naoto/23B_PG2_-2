@@ -1,4 +1,5 @@
 #pragma once
+#include "Novice.h"
 
 typedef struct Vector2
 {

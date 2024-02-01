@@ -4,6 +4,8 @@
 
 const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 
+bool Bullet::isShot = false;
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -32,7 +34,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		player->Update(keys);
+		player->Update(keys,preKeys);
 
 		enemy->Update();
 

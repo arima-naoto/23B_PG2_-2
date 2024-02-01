@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "Novice.h"
 
 void Enemy::Initalize(Vector2 position, int radius, int speed, unsigned int color)
 {

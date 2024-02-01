@@ -1,24 +1,25 @@
 #pragma once
 #include "Struct.h"
-#include "Bullet.h"
 
-class Player
+class Bullet
 {
 public:
 
-	Player(Vector2 position, int radius, int speed, unsigned int color);
+	Bullet(Vector2 position,int radius,int speed,unsigned int color);
 
-	~Player();
+	~Bullet();
 
-	void Update(char *keys,char *preKeys);
+	void Update();
 
 	void Draw();
 
 	Vector2 GetPos() { return position_; };
 
+	void SetPosition(Vector2 position) { this->position_ = position; };
+
 	int GetRadius() { return radius_; };
 
-	Bullet* bullet;
+	static bool isShot;
 
 private:
 
