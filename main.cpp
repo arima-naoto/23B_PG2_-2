@@ -28,7 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		player->Update(keys);
+		player->Update(keys,preKeys);
 
 		///
 		/// ↑更新処理ここまで
