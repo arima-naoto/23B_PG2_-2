@@ -1,31 +1,34 @@
 #include "Bullet.h"
 
-Bullet::Bullet(Vector2 position,int radius,int speed,unsigned int color)
+Bullet::Bullet() 
 {
-	position_ = position;
-	radius_ = radius;
-	speed_ = speed;
-	color_ = color;
+	position_.x = 0;
+	position_.y = -10;
+	radius_ = 20;
+	speed_ = 10;
+	color_ = WHITE;
+
+	isShot_ = false;
 }
 
 Bullet::~Bullet(){}
 
 void Bullet::Update()
 {
-	if(isShot == true)
+	if (isShot_ == true) 
 	{
 		position_.y -= speed_;
 
-		if(position_.y <= -20)
+		if (position_.y <= -20) 
 		{
-			isShot = false;
+			isShot_ = false;
 		}
 	}
 }
 
-void Bullet::Draw() 
+void Bullet::Draw()
 {
-	if(isShot == true)
+	if (isShot_ == true) 
 	{
 		Novice::DrawEllipse(position_.x, position_.y, radius_, radius_, 0.0f, color_, kFillModeSolid);
 	}
