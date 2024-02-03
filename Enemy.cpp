@@ -29,12 +29,15 @@ void Enemy::Update()
 
 void Enemy::OnCollision()
 {
-	RespornTimer_--;
-
-	if (RespornTimer_ <= 0)
+	if (isAlive_ == false) 
 	{
-		RespornTimer_ = 120;
-		isAlive_ = true;
+		RespornTimer_--;
+
+		if (RespornTimer_ <= 0)
+		{
+			RespornTimer_ = 120;
+			isAlive_ = true;
+		}
 	}
 }
 
