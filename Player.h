@@ -1,5 +1,6 @@
 #pragma once
 #include "Struct.h"
+#include "Bullet.h"
 
 class Player
 {
@@ -9,13 +10,15 @@ public:
 
 	~Player();
 
-	void Update(char *keys);
+	void Update(char *keys,char *preKeys);
 
 	void Draw();
 
 	Vector2 GetPos() { return position_; };
 
 	int GetRadius() { return radius_; };
+
+	Bullet* bullet;
 
 private:
 
