@@ -8,8 +8,6 @@ const int Window_Height = 720;
 
 bool Bullet::isShot_ = false;
 
-bool Enemy::isAlive_ = true;
-
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 

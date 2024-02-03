@@ -5,8 +5,6 @@ class Enemy
 {
 public:
 
-	static bool isAlive_;
-
 	int RespornTimer_;
 
 	void Initalize();
@@ -21,6 +19,10 @@ public:
 
 	int GetRadius() { return radius_; };
 
+	bool GetIsAlive() { return isAlive_; };
+
+	void SetIsAlive(bool isAlive) { this->isAlive_ = isAlive; };
+
 private:
 
 	Vector2 position_;
@@ -30,6 +32,8 @@ private:
 	int speed_;
 
 	unsigned int color_;
+
+	bool isAlive_;
 
 };
 
