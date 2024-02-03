@@ -5,6 +5,8 @@ class Enemy
 {
 public:
 
+	static bool isAlive_;
+
 	int RespornTimer_;
 
 	void Initalize();
@@ -32,8 +34,6 @@ private:
 	int speed_;
 
 	unsigned int color_;
-
-	bool isAlive_;
 
 };
 
