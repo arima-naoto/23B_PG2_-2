@@ -13,17 +13,7 @@ public:
 
 	void Draw();
 
-	Vector2 GetPos() { return position_; };
-
-	void SetPosition(Vector2 position) { this->position_ = position; };
-
-	int GetRadius() { return radius_; };
-
-	bool GetShot() { return isShot_; };
-
-	bool SetShot(bool isShot) { return this->isShot_ = isShot; };
-
-private:
+public:
 
 	Vector2 position_;
 

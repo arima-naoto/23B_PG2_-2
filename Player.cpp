@@ -38,18 +38,11 @@ void Player::Update(char *keys,char *preKeys)
 		position_.y += speed_;
 	}
 
-	bool TempIsShot = bullet->GetShot();
-
-	Vector2 TempPlayerPosition = GetPos();
-
-	if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == false && bullet->SetShot(TempIsShot) == false) 
+	if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == false && bullet->isShot_ == false) 
 	{
-		TempIsShot = true;
-
-		bullet->SetShot(TempIsShot);
-
-		bullet->SetPosition(TempPlayerPosition);
-
+		bullet->isShot_ = true;
+		bullet->position_.x = position_.x;
+		bullet->position_.y = position_.y;
 	}
 
 	bullet->Update();
