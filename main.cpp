@@ -10,6 +10,19 @@ bool Bullet::isShot_ = false;
 
 bool Enemy::isAlive_ = true;
 
+bool Collision(const Vector2& bullet, const Vector2& enemy, int bulletRadius, int enemyRadius)
+{
+
+	if (bullet.x - bulletRadius <= enemy.x + enemyRadius && enemy.x - enemyRadius <= bullet.x + bulletRadius &&
+		bullet.y - bulletRadius <= enemy.y + enemyRadius && enemy.y - enemyRadius <= bullet.y + bulletRadius)
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
