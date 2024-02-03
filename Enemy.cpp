@@ -15,6 +15,17 @@ void Enemy::Initalize()
 
 void Enemy::Update()
 {
+
+	if (isAlive_ == false) {
+		RespornTimer_--;
+
+		if (RespornTimer_ <= 0)
+		{
+			RespornTimer_ = 120;
+			isAlive_ = true;
+		}
+	}
+
 	if(isAlive_ == true)
 	{
 		position_.x += speed_;
