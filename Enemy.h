@@ -11,6 +11,8 @@ public:
 
 	void Initalize();
 
+	void OnCollision();
+
 	void Update();
 
 	void Draw();

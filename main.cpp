@@ -8,7 +8,7 @@ const int Window_Height = 720;
 
 bool Bullet::isShot_ = false;
 
-bool Enemy::isAlive_ = false;
+bool Enemy::isAlive_ = true;
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		player->Update(keys,preKeys);
+		player->Update(keys, preKeys);
 
 		enemy->Update();
 

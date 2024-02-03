@@ -15,7 +15,20 @@ void Enemy::Initalize()
 
 void Enemy::Update()
 {
+	if(isAlive_ == true)
+	{
+		position_.x += speed_;
 
+		if(position_.x >= 1260 || position_.x <= 20)
+		{
+			speed_ *= -1;
+		}
+
+	}
+}
+
+void Enemy::OnCollision()
+{
 	if (isAlive_ == false)
 	{
 		RespornTimer_--;
@@ -25,17 +38,6 @@ void Enemy::Update()
 			RespornTimer_ = 120;
 			isAlive_ = true;
 		}
-	}
-
-	if(isAlive_ == true)
-	{
-		position_.x += speed_;
-
-		if(position_.x >= 1260 && position_.x <= 20)
-		{
-			speed_ *= -1;
-		}
-
 	}
 }
 
