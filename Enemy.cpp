@@ -13,8 +13,9 @@ void Enemy::Initalize()
 
 }
 
-void Enemy::OnCollision()
+void Enemy::Update()
 {
+
 	if (isAlive_ == false) {
 		RespornTimer_--;
 
@@ -24,10 +25,7 @@ void Enemy::OnCollision()
 			isAlive_ = true;
 		}
 	}
-}
 
-void Enemy::Update()
-{
 	if(isAlive_ == true)
 	{
 		position_.x += speed_;
