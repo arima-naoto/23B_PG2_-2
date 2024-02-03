@@ -1,11 +1,14 @@
 #include <Novice.h>
 #include <Player.h>
+#include <Enemy.h>
 
 const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 const int Window_Width = 1280;
 const int Window_Height = 720;
 
 bool Bullet::isShot_ = false;
+
+bool Enemy::isAlive_ = false;
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -18,6 +21,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char preKeys[256] = {0};
 
 	Player* player = new Player();
+
+	Enemy* enemy = new Enemy();
+	enemy->Initalize();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -34,6 +40,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		player->Update(keys,preKeys);
 
+		enemy->Update();
+
 		///
 		/// ↑更新処理ここまで
 		///
@@ -43,6 +51,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		player->Draw();
+
+		enemy->Draw();
+
+		Novice::ScreenPrintf(0, 0, "enemy->RespornTimer = %d", enemy->RespornTimer_);
 
 		///
 		/// ↑描画処理ここまで
@@ -59,6 +71,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの終了
 	Novice::Finalize();
-	delete player;
+	delete player,enemy;
 	return 0;
 }
