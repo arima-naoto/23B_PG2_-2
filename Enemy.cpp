@@ -8,6 +8,7 @@ void Enemy::Initalize()
 	speed_ = 5;
 
 	color_ = RED;
+	isAlive_ = true;
 
 	RespornTimer_ = 120;
 
