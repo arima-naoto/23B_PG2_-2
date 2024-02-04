@@ -1,9 +1,13 @@
 #pragma once
 #include "struct.h"
 
+#pragma region //Enemyクラスの作成
+
 class Enemy
 {
 public:
+
+	//Enemyクラスのメンバ関数の宣言
 
 	void Initalize();
 
@@ -13,11 +17,15 @@ public:
 
 	void OnCollision();
 
+	//Enemyクラスのカプセル化とアクセッサを追加
+
 	Vector2 GetPos() { return position_; };
 
 	void SetPosition(Vector2 position) { this->position_ = position; };
 
 	int GetRadius() { return radius_; };
+
+	//public型変数の宣言
 
 	int Hp_;
 
@@ -25,7 +33,7 @@ public:
 
 	bool isAlive_;
 
-private:
+private://メンバ変数
 
 	Vector2 position_;
 
@@ -37,3 +45,4 @@ private:
 
 };
 
+#pragma endregion

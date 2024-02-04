@@ -1,5 +1,6 @@
 #include "Player.h"
 
+//Playerクラスの初期化処理
 Player::Player()
 {
 	position_.x = 640;
@@ -9,18 +10,23 @@ Player::Player()
 
 	color_ = GREEN;
 
+	//Bulletクラスのインスタンスを作成
 	bullet = new Bullet();
 
 }
 
+//デストラクタ処理
 Player::~Player()
 {
 	delete bullet;
 }
 
+//Playerクラスの更新処理
 void Player::Update(char *keys, char* preKeys,Enemy *enemy)
 {
 	
+	//====================================================<キー入力による更新処理>======================================================
+
 	if(keys[DIK_D])
 	{
 		position_.x += speed_;
@@ -53,9 +59,11 @@ void Player::Update(char *keys, char* preKeys,Enemy *enemy)
 
 	bullet->Update();
 
+	//リスポーン処理用メンバ関数OnCollisionを呼び出す
 	enemy->OnCollision();
 }
 
+//Playerクラスの描画処理
 void Player::Draw()
 {
 	bullet->Draw();

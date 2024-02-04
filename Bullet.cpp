@@ -1,5 +1,6 @@
 #include "Bullet.h"
 
+//Bulletクラスの初期化処理
 Bullet::Bullet()
 {
 	position_.x = 0;
@@ -10,8 +11,10 @@ Bullet::Bullet()
 	color_ = WHITE;
 }
 
+//デストラクタ処理
 Bullet::~Bullet() {}
 
+//Bulletクラスの更新処理
 void Bullet::Update()
 {
 	if (isShot_ == true)
@@ -25,6 +28,7 @@ void Bullet::Update()
 	}
 }
 
+//Bulletクラスの描画処理
 void Bullet::Draw()
 {
 	if (isShot_ == true)

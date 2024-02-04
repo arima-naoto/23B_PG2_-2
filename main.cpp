@@ -10,6 +10,9 @@ bool Player::isHit_ = false;
 
 bool Bullet::isShot_ = false;
 
+#pragma region //自作関数を作成する
+
+//敵と弾の当たり判定用自作関数EnemyCollisionを作成
 bool EnemyCollision(Vector2 obj1, Vector2 obj2,int obj1radius,int obj2radius)
 {
 	if(obj1.x - obj1radius <= obj2.x + obj2radius && obj2.x - obj2radius <= obj1.x + obj1radius && 
@@ -21,6 +24,7 @@ bool EnemyCollision(Vector2 obj1, Vector2 obj2,int obj1radius,int obj2radius)
 	return false;
 }
 
+//敵と自機の当たり判定用自作関数PlayerCollisionを作成
 bool PlayerCollision(Vector2 obj2, Vector2 obj3, int obj2radius, int obj3radius)
 {
 	if (obj2.x - obj2radius <= obj3.x + obj3radius && obj3.x - obj3radius <= obj2.x + obj2radius &&
@@ -32,6 +36,8 @@ bool PlayerCollision(Vector2 obj2, Vector2 obj3, int obj2radius, int obj3radius)
 	return false;
 }
 
+#pragma endregion
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -42,6 +48,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
+#pragma region //初期化処理
 
 	//=========================================================<画像の読み込み>=========================================================
 
@@ -64,12 +71,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int SoundHandle2 = -1;
 	int SoundHandle3 = -1;
 
+	//Playerクラスのインスタンスを作成
 	Player* player = new Player();
 
+	//Enemyクラスのインスタンスを作成
 	Enemy* enemy = new Enemy();
 	enemy->Initalize();
 
+	//GameScene型変数Sceneを宣言し、TITLEで初期化する
 	GameScene Scene = TITLE;
+
+#pragma endregion
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -84,77 +96,94 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+#pragma region //switch文を使用して、各シーンの更新処理を行う
+
 		switch (Scene) {
 
-		case TITLE:
+		case TITLE://SceneがTITLEの時
 
+			//自機の座標を初期化する
 			player->SetPosition({ 640,550 });
 
+			//打たれているフラグをfalseにする
 			Bullet::isShot_ = false;
 
-			enemy->SetPosition({ 640,150 });
-			enemy->Hp_ = 3;
-			enemy->RespornTimer_ = 120;
-			enemy->isAlive_ = true;
+			//Enemyクラスの初期化を行う
+			enemy->SetPosition({ 640,150 });//座標の初期化
 
-			if(keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
+			enemy->Hp_ = 3;//体力の初期化
+
+			enemy->RespornTimer_ = 120;//リスポーンタイマーの初期化
+
+			enemy->isAlive_ = true;//敵機が生きているフラグをtrueにする
+
+			if(keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)//Enterキーが押された瞬間
 			{
-				Novice::StopAudio(SoundHandle);
+				Novice::StopAudio(SoundHandle);//シーンTITLEの音楽を止める
 
-				Scene = GAME;
+				Scene = GAME;//シーンをGAMEにする
 			}
 
-		case GAME:
+			break;
 
+		case GAME://シーンがGAMEの時
+
+			//Playerクラスの更新処理メンバ関数Updateを呼び出す
 			player->Update(keys, preKeys,enemy);
 
+			//enemyクラスの更新処理メンバ関数Updateを呼び出す
 			enemy->Update();
 
+			//自作関数EnemyCollisionを呼び出し、敵と弾の当たり判定を行う
 			if(EnemyCollision(player->bullet->GetPos(), enemy->GetPos(), player->bullet->GetRadius(), enemy->GetRadius()))
 			{
-				enemy->isAlive_ = false;
+				enemy->isAlive_ = false;//敵機の生きているフラグを折る
 			}
 
+			//自作関数PlayerCollisionを呼び出し、敵と自機の当たり判定を行う
 			if(PlayerCollision(enemy->GetPos(),player->GetPos(),enemy->GetRadius(),player->GetRadius()))
 			{
-				Player::isHit_ = true;
+				Player::isHit_ = true;//自機が当たったフラグを立て
 
-				if (Player::isHit_ == true)
+				if (Player::isHit_ == true)//もし当たっていたら
 				{
-					Novice::StopAudio(SoundHandle1);
-					Scene = DEAD;
+					Novice::StopAudio(SoundHandle1);//シーンGAME用の音楽を止め
+
+					Scene = DEAD;//SceneをDEADにする
 				}
 			}
 
-			if (enemy->Hp_ <= 0)
+			if (enemy->Hp_ <= 0)//敵機の残機が0になったら
 			{
-				Novice::StopAudio(SoundHandle1);
-				Scene = CLEAR;
+				Novice::StopAudio(SoundHandle1);//シーンGAME用の音楽を止め
+				Scene = CLEAR;//SceneをCLEARにする
 			}
 
 			break;
 
 		case CLEAR:
 
-			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
+			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)//Enterキーが押された瞬間
 			{
-				Novice::StopAudio(SoundHandle2);
-				Scene = TITLE;
+				Novice::StopAudio(SoundHandle2);//シーンCLEAR用の音楽を止め
+				Scene = TITLE;//SceneをTITLEにする
 			}
 
 			break;
 
 		case DEAD:
 
-			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
+			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)//Enterキーが押された瞬間
 			{
-				Novice::StopAudio(SoundHandle3);
-				Scene = TITLE;
+				Novice::StopAudio(SoundHandle3);//シーンDEAD用の音楽を止め
+				Scene = TITLE;//SceneをTITLEにする
 			}
 
 			break;
 
 		}
+
+#pragma endregion
 
 
 		///
@@ -164,6 +193,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
+
+#pragma region //描画処理
 
 		switch (Scene) {
 
@@ -213,6 +244,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		}
+#pragma endregion
 		
 		///
 		/// ↑描画処理ここまで

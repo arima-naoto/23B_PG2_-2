@@ -3,19 +3,25 @@
 #include "Bullet.h"
 #include "Enemy.h"
 
+#pragma region //Playerクラスの作成
+
 class Player
 {
 public:
 
-	static bool isHit_;
+	static bool isHit_;//静的メンバ変数isHit_を宣言する
 
-	Player();
+	//Playerクラスのメンバ関数の宣言
 
-	~Player();
+	Player();//インストラクタ
+
+	~Player();//デストラクタ
 
 	void Update(char *keys,char *preKeys, Enemy* enemy);
 
 	void Draw();
+
+	//Playerクラスのカプセル化とアクセッサの追加
 
 	Vector2 GetPos() { return position_; };
 
@@ -23,9 +29,11 @@ public:
 
 	int GetRadius() { return radius_; };
 
+	//Bulletクラスを包含
+
 	Bullet* bullet;
 
-private:
+private://メンバ変数
 
 	Vector2 position_;
 

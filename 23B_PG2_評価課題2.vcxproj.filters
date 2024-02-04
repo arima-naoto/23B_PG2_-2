@@ -136,6 +136,5 @@
     <ClInclude Include="Bullet.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h" />
   </ItemGroup>
 </Project>

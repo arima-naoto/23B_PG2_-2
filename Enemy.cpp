@@ -1,5 +1,7 @@
 #include "Enemy.h"
 
+
+//Enemyクラスの初期化処理
 void Enemy::Initalize()
 {
 	position_.x = 640;
@@ -18,6 +20,7 @@ void Enemy::Initalize()
 
 }
 
+//Enemyクラスの更新処理
 void Enemy::Update()
 {
 
@@ -39,6 +42,7 @@ void Enemy::Update()
 	}
 }
 
+//Enemyクラスの描画処理
 void Enemy::Draw()
 {
 	if(isAlive_ == true)
@@ -47,6 +51,7 @@ void Enemy::Draw()
 	}
 }
 
+//Enemyクラスのリスポーン処理
 void Enemy::OnCollision()
 {
 	if (isAlive_ == false)
