@@ -53,17 +53,7 @@ void Player::Update(char *keys, char* preKeys,Enemy *enemy)
 
 	bullet->Update();
 
-	if (enemy->isAlive_ == false)
-	{
-		enemy->RespornTimer_--;
-
-		if (enemy->RespornTimer_ <= 0)
-		{
-			enemy->isAlive_ = true;
-			enemy->RespornTimer_ = 120;
-			enemy->Hp_ -= 1;
-		}
-	}
+	enemy->OnCollision();
 }
 
 void Player::Draw()

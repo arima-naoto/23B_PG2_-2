@@ -11,6 +11,8 @@ public:
 
 	void Draw();
 
+	void OnCollision();
+
 	Vector2 GetPos() { return position_; };
 
 	void SetPosition(Vector2 position) { this->position_ = position; };

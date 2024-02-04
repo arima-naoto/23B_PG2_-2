@@ -47,3 +47,17 @@ void Enemy::Draw()
 	}
 }
 
+void Enemy::OnCollision()
+{
+	if (isAlive_ == false)
+	{
+		RespornTimer_--;
+
+		if (RespornTimer_ <= 0)
+		{
+			isAlive_ = true;
+			RespornTimer_ = 120;
+			Hp_ -= 1;
+		}
+	}
+}

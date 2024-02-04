@@ -75,6 +75,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			enemy->RespornTimer_ = 120;
 			enemy->isAlive_ = true;
 
+			if(keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
+			{
+				Scene = GAME;
+			}
+
 		case GAME:
 
 			player->Update(keys, preKeys,enemy);
@@ -99,6 +104,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (enemy->Hp_ <= 0)
 			{
 				Scene = CLEAR;
+			}
+
+			break;
+
+		case CLEAR:
+
+			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
+			{
+				Scene = TITLE;
+			}
+
+			break;
+
+		case DEAD:
+
+			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
+			{
+				Scene = TITLE;
 			}
 
 			break;
