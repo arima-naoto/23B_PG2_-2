@@ -7,8 +7,6 @@ class Player
 {
 public:
 
-	static bool isHit_;
-
 	Player();
 
 	~Player();
