@@ -5,10 +5,6 @@ class Enemy
 {
 public:
 
-	static bool isAlive_;
-
-	int RespornTimer_;
-
 	void Initalize();
 
 	void Update();
@@ -17,11 +13,15 @@ public:
 
 	Vector2 GetPos() { return position_; };
 
+	void SetPosition(Vector2 position) { this->position_ = position; };
+
 	int GetRadius() { return radius_; };
 
-	bool GetIsAlive() { return isAlive_; };
+	int Hp_;
 
-	void SetIsAlive(bool isAlive) { this->isAlive_ = isAlive; };
+	int RespornTimer_;
+
+	bool isAlive_;
 
 private:
 
@@ -29,7 +29,7 @@ private:
 
 	int radius_;
 
-	int speed_;
+	Vector2 speed_;
 
 	unsigned int color_;
 

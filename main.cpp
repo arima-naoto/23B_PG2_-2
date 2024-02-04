@@ -6,9 +6,31 @@ const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 const int Window_Width = 1280;
 const int Window_Height = 720;
 
+bool Player::isHit_ = false;
+
 bool Bullet::isShot_ = false;
 
-bool Enemy::isAlive_ = true;
+bool EnemyCollision(Vector2 obj1, Vector2 obj2,int obj1radius,int obj2radius)
+{
+	if(obj1.x - obj1radius <= obj2.x + obj2radius && obj2.x - obj2radius <= obj1.x + obj1radius && 
+	   obj1.y - obj1radius <= obj2.y + obj2radius && obj2.y - obj2radius <= obj1.y + obj1radius)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool PlayerCollision(Vector2 obj2, Vector2 obj3, int obj2radius, int obj3radius)
+{
+	if (obj2.x - obj2radius <= obj3.x + obj3radius && obj3.x - obj3radius <= obj2.x + obj2radius &&
+		obj2.y - obj2radius <= obj3.y + obj3radius && obj3.y - obj3radius <= obj2.y + obj2radius)
+	{
+		return true;
+	}
+
+	return false;
+}
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -25,6 +47,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Enemy* enemy = new Enemy();
 	enemy->Initalize();
 
+	GameScene Scene = TITLE;
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -38,9 +62,49 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		player->Update(keys, preKeys);
+		switch (Scene) {
 
-		enemy->Update();
+		case TITLE:
+
+			player->SetPosition({ 640,550 });
+
+			Bullet::isShot_ = false;
+
+			enemy->SetPosition({ 640,150 });
+			enemy->Hp_ = 3;
+			enemy->RespornTimer_ = 120;
+			enemy->isAlive_ = true;
+
+		case GAME:
+
+			player->Update(keys, preKeys,enemy);
+
+			enemy->Update();
+
+			if(EnemyCollision(player->bullet->GetPos(), enemy->GetPos(), player->bullet->GetRadius(), enemy->GetRadius()))
+			{
+				enemy->isAlive_ = false;
+			}
+
+			if(PlayerCollision(enemy->GetPos(),player->GetPos(),enemy->GetRadius(),player->GetRadius()))
+			{
+				Player::isHit_ = true;
+
+				if (Player::isHit_ == true)
+				{
+					Scene = DEAD;
+				}
+			}
+
+			if (enemy->Hp_ <= 0)
+			{
+				Scene = CLEAR;
+			}
+
+			break;
+
+		}
+
 
 		///
 		/// ↑更新処理ここまで
@@ -50,12 +114,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
-		player->Draw();
+		switch (Scene) {
 
-		enemy->Draw();
+		case GAME:
 
-		Novice::ScreenPrintf(0, 0, "enemy->RespornTimer = %d", enemy->RespornTimer_);
+			player->Draw();
 
+			enemy->Draw();
+
+			Novice::ScreenPrintf(0, 20, "enemy->Hp_ = %d", enemy->Hp_);
+
+			Novice::ScreenPrintf(0, 40, "enemy->RespornTimer_ = %d", enemy->RespornTimer_);
+
+			break;
+
+		case CLEAR:
+
+			Novice::DrawBox(0, 0, 1280, 720, 0.0f, BLUE,kFillModeSolid);
+
+			break;
+
+		case DEAD:
+
+			Novice::DrawBox(0, 0, 1280, 720, 0.0f, BLACK, kFillModeSolid);
+
+			break;
+
+		}
+		
 		///
 		/// ↑描画処理ここまで
 		///

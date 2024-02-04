@@ -1,20 +1,25 @@
 #pragma once
 #include "Struct.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 class Player
 {
 public:
 
+	static bool isHit_;
+
 	Player();
 
 	~Player();
 
-	void Update(char *keys,char *preKeys);
+	void Update(char *keys,char *preKeys, Enemy* enemy);
 
 	void Draw();
 
 	Vector2 GetPos() { return position_; };
+
+	void SetPosition(Vector2 position) { this->position_ = position; };
 
 	int GetRadius() { return radius_; };
 
