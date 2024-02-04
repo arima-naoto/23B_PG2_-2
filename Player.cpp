@@ -4,7 +4,7 @@ Player::Player()
 {
 	position_.x = 640;
 	position_.y = 550;
-	radius_ = 35;
+	radius_ = 30;
 	speed_ = 7;
 
 	color_ = GREEN;

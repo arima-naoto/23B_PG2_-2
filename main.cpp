@@ -42,6 +42,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
+
+	//=========================================================<画像の読み込み>=========================================================
+
+	int TitleHandle = Novice::LoadTexture("./Resources/images/TitleBackGround.png");
+	int LetterHandle = Novice::LoadTexture("./Resources/images/TitleLetter.png");
+	int GameHandle = Novice::LoadTexture("./Resources/images/bg.png");
+	int ClearHandle = Novice::LoadTexture("./Resources/images/ClearBackGround.png");
+	int DeadHandle = Novice::LoadTexture("./Resources/images/DeadBackGround.png");
+
+	//=========================================================<音声の読み込み>=========================================================
+
+	int TitleSound = Novice::LoadAudio("./Resources/sounds/start.wav");
+	int GameSound = Novice::LoadAudio("./Resources/sounds/yokoku.mp3");
+	int ClearSound = Novice::LoadAudio("./Resources/sounds/fanfare.wav");
+	int DeadSound = Novice::LoadAudio("./Resources/sounds/shock5.mp3");
+
+	//音声ループ用の変数を用意
+	int SoundHandle = -1;
+	int SoundHandle1 = -1;
+	int SoundHandle2 = -1;
+	int SoundHandle3 = -1;
+
 	Player* player = new Player();
 
 	Enemy* enemy = new Enemy();
@@ -77,6 +99,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if(keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
 			{
+				Novice::StopAudio(SoundHandle);
+
 				Scene = GAME;
 			}
 
@@ -97,12 +121,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				if (Player::isHit_ == true)
 				{
+					Novice::StopAudio(SoundHandle1);
 					Scene = DEAD;
 				}
 			}
 
 			if (enemy->Hp_ <= 0)
 			{
+				Novice::StopAudio(SoundHandle1);
 				Scene = CLEAR;
 			}
 
@@ -112,6 +138,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
 			{
+				Novice::StopAudio(SoundHandle2);
 				Scene = TITLE;
 			}
 
@@ -121,6 +148,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == false)
 			{
+				Novice::StopAudio(SoundHandle3);
 				Scene = TITLE;
 			}
 
@@ -139,27 +167,48 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		switch (Scene) {
 
+		case TITLE:
+
+			Novice::DrawSprite(0, 0, TitleHandle, 1, 1, 0.0f, WHITE);
+			Novice::DrawSprite(0, 0, LetterHandle, 1, 1, 0.0f, WHITE);
+
+			if (Novice::IsPlayingAudio(SoundHandle) == 0 || SoundHandle == -1) {
+				SoundHandle = Novice::PlayAudio(TitleSound, 1, 1.0f);
+			}
+
+			break;
+
 		case GAME:
+
+			Novice::DrawSprite(0, 0, GameHandle, 1, 1, 0.0f, WHITE);
 
 			player->Draw();
 
 			enemy->Draw();
 
-			Novice::ScreenPrintf(0, 20, "enemy->Hp_ = %d", enemy->Hp_);
-
-			Novice::ScreenPrintf(0, 40, "enemy->RespornTimer_ = %d", enemy->RespornTimer_);
+			if (Novice::IsPlayingAudio(SoundHandle1) == 0 || SoundHandle1 == -1) {
+				SoundHandle1 = Novice::PlayAudio(GameSound, 1, 1.0f);
+			}
 
 			break;
 
 		case CLEAR:
 
-			Novice::DrawBox(0, 0, 1280, 720, 0.0f, BLUE,kFillModeSolid);
+			Novice::DrawSprite(0, 0, ClearHandle, 1, 1, 0.0f, WHITE);
+
+			if (Novice::IsPlayingAudio(SoundHandle2) == 0 || SoundHandle2 == -1) {
+				SoundHandle2 = Novice::PlayAudio(ClearSound, 1, 1.0f);
+			}
 
 			break;
 
 		case DEAD:
 
-			Novice::DrawBox(0, 0, 1280, 720, 0.0f, BLACK, kFillModeSolid);
+			Novice::DrawSprite(0, 0, DeadHandle, 1, 1, 0.0f, WHITE);
+
+			if (Novice::IsPlayingAudio(SoundHandle3) == 0 || SoundHandle3 == -1) {
+				SoundHandle3 = Novice::PlayAudio(DeadSound, 1, 1.0f);
+			}
 
 			break;
 
