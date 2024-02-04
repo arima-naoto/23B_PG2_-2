@@ -6,6 +6,8 @@ const char kWindowTitle[] = "GC1C_02_アリマ_ナオト";
 const int Window_Width = 1280;
 const int Window_Height = 720;
 
+bool Player::isHit_ = false;
+
 bool Bullet::isShot_ = false;
 
 bool EnemyCollision(Vector2 obj1, Vector2 obj2,int obj1radius,int obj2radius)
